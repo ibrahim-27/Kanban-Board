@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import BoardCol from "./BoardCol";
-import { DndContext } from "@dnd-kit/core";
+import { DndContext, useSensor, MouseSensor, useSensors } from "@dnd-kit/core";
 
 const Board = () => {
   const [cols, setCols] = useState(["Backlog", "InProgress", "Completed"]);
@@ -30,8 +30,7 @@ const Board = () => {
     {
       id: 4,
       title: "Refactor Backend Code",
-      description:
-        "Refactor backend code for better performance and readability.",
+      description: "Refactor backend code for better performance and readability.",
       status: "InProgress",
       tags: ["Improvement", "Backend"],
     },
@@ -40,9 +39,31 @@ const Board = () => {
       title: "Add Unit Tests",
       description: "Write unit tests to ensure code reliability.",
       status: "Backlog",
-      tags: ["Feature", "QA/Testing"],
+      tags: ["Feature", "Testing"],
+    },
+    {
+      id: 6,
+      title: "Fix Database Connection Issue",
+      description: "Resolve the intermittent database connection issue.",
+      status: "InProgress",
+      tags: ["Bug", "Backend"],
+    },
+    {
+      id: 7,
+      title: "Optimize Frontend Performance",
+      description: "Improve frontend performance by optimizing code.",
+      status: "Backlog",
+      tags: ["Improvement", "Frontend"],
+    },
+    {
+      id: 8,
+      title: "Write User Guide",
+      description: "Create a user guide for the application.",
+      status: "Completed",
+      tags: ["Documentation"],
     },
   ];
+
 
   const [tasks, setTasks] = useState(dummyTasks);
 
@@ -63,13 +84,22 @@ const Board = () => {
   
     setTasks(updatedTasks);
   };
+
+  const mouseSensor = useSensor(MouseSensor, {
+    // Require the mouse to move by 10 pixels before activating
+    activationConstraint: {
+      distance: 10,
+    },
+  });
+
+  const sensors = useSensors(mouseSensor);
   
 
   return (
-    <div className="bg-gray-50 px-6 py-3 rounded-lg">
-      <h1 className="text-text-primary text-2xl font-bold">Project Name</h1>
-      <div className="grid grid-cols-3 gap-8">
-        <DndContext onDragEnd={OnDragEnd}>
+    <div className="bg-gray-50 px-6 py-3 rounded-2xl">
+      <h1 className="text-text-primary text-2xl font-bold my-6">Kanban Board</h1>
+      <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-8">
+        <DndContext onDragEnd={OnDragEnd} sensors={sensors}>
           {cols.map((col) => (
             <BoardCol key={col} title={col} tasks={tasks} />
           ))}
