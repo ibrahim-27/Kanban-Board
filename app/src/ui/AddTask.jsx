@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 
 const AddTask = (props) => {
   const [task, setTask] = useState({
-    id: 12,
     title: '',
     description: '',
     status:'',

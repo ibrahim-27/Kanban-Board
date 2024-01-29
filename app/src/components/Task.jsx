@@ -5,7 +5,7 @@ import Tag from "../ui/Tag";
 
 const Task = ({ task, DeleteTask }) => {
   const { attributes, listeners, setNodeRef, transform, transition } = useDraggable({
-    id: task.id.toString(),
+    id: task._id.toString(),
   });
 
   // useEffect(() => {
@@ -27,7 +27,7 @@ const Task = ({ task, DeleteTask }) => {
         <h1 className="text-text-primary text-lg font-semibold">
           {task.title}
         </h1>
-        <div className="px-1" onClick={() => DeleteTask(task.id)}>
+        <div className="px-1" onClick={() => DeleteTask(task._id)}>
         <Icon
           className="bg-tag-red text-red-900 rounded-[50%] text-2xl"
           icon="material-symbols:delete-outline"

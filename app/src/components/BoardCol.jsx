@@ -3,12 +3,14 @@ import { Icon } from "@iconify/react";
 import Task from "./Task";
 import { useDroppable } from "@dnd-kit/core";
 import AddTask from "../ui/AddTask";
+import axios from "axios";
 
 const BoardCol = (props) => {
   const [taskArray, setTaskArray] = useState([]);
   const [isAddingTask, setIsAddingTask] = useState(false);
 
   const FilterData = () => {
+    // console.log(props.tasks, props.title);
     setTaskArray(props.tasks.filter((task) => task.status.toLowerCase() === props.title.toLowerCase()));
   }
 
@@ -16,14 +18,26 @@ const BoardCol = (props) => {
     setIsAddingTask(false);
   };
 
-  const HandleAdd= (task) => {
-    setTaskArray([...taskArray, task]);
+  const HandleAdd= async (task) => {
+    task = {...task, status: props.title.toLowerCase()}
+    try {
+      let newTask = await axios.post('http://localhost:3000/task/', task);
+      newTask = newTask.data;
+      // console.log(newTask);
+      setTaskArray([...taskArray, newTask]);
+      
+    } catch (error) {
+      console.log(error)
+    }
+    // setTaskArray([...taskArray, task]);
     setIsAddingTask(false);
   }
 
-  const DeleteTask = (id) => {
-    setTaskArray(taskArray.filter((task) => task.id !== id));
-    console.log(taskArray);
+  const DeleteTask = async (id) => {
+    // console.log(id);
+    await axios.delete(`http://localhost:3000/task/${id}`);
+    setTaskArray(taskArray.filter((task) => task._id !== id));
+    // console.log(taskArray);
   }
 
   useEffect(() => {
@@ -65,7 +79,7 @@ const BoardCol = (props) => {
       </div>
       <div className="flex flex-col gap-4 mt-4">
         {taskArray.map((task) => (
-          <Task key={task.id} task={task} DeleteTask={DeleteTask} />
+          <Task key={task._id} task={task} DeleteTask={DeleteTask} />
         ))}
       </div>
     </div> 
