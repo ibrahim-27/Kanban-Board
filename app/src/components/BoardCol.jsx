@@ -58,7 +58,7 @@ const BoardCol = (props) => {
       <div className="flex justify-between">
         <h3 className="text-xl font-semibold">{props.title}</h3>
         <Icon
-          className="bg-theme-bg rounded-[50%] p-1 text-2xl"
+          className="bg-theme-bg rounded-[50%] p-1 text-2xl hover:border-2 cursor-pointer"
           icon="material-symbols:add"
           onClick={() => setIsAddingTask(!isAddingTask)}
         />

@@ -27,11 +27,12 @@ const Task = ({ task, DeleteTask }) => {
         <h1 className="text-text-primary text-lg font-semibold">
           {task.title}
         </h1>
+        <div className="px-1" onClick={() => DeleteTask(task.id)}>
         <Icon
           className="bg-tag-red text-red-900 rounded-[50%] text-2xl"
           icon="material-symbols:delete-outline"
-          onClick={() => DeleteTask(task.id)}  
         />
+        </div>
       </div>
       <p>{task.description}</p>
       <div className="flex items-center flex-wrap gap-2">

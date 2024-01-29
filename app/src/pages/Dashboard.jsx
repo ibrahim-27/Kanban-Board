@@ -1,10 +1,12 @@
 import React from 'react'
 import Board from '../components/Board'
+import SideBar from '../components/SideBar'
 
 const Dashboard = () => {
   return (
-    <div className='bg-theme-bg min-h-screen py-6 px-12'>
-        <Board />
+    <div className='flex bg-theme-bg min-h-screen'>
+      {/* <SideBar /> */}
+      <Board />
     </div>
   )
 }

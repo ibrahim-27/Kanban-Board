@@ -68,7 +68,7 @@ const AddTask = (props) => {
   };
 
   return (
-    <div className="absolute flex flex-col bg-white p-4 rounded-lg shadow-md w-[550px] top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-20">
+    <div className="fixed flex flex-col bg-white p-4 rounded-lg shadow-md w-[250px] md:w-[550px] top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-20">
       <input
         type="text"
         placeholder="Title"
