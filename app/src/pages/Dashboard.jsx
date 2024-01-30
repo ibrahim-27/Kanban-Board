@@ -4,8 +4,8 @@ import SideBar from '../components/SideBar'
 
 const Dashboard = () => {
   return (
-    <div className=' bg-theme-bg min-h-screen'>
-      {/* <SideBar /> */}
+    <div className='flex bg-theme-bg min-h-screen'>
+      <SideBar />
       <Board />
     </div>
   )

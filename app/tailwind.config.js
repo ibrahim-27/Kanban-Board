@@ -25,4 +25,18 @@ export default {
     },
   },
   plugins: [],
+  safelist: [
+    "bg-tag-urgent",
+    "bg-tag-frontend",
+    "bg-tag-design",
+    "bg-tag-backend",
+    "bg-tag-testing",
+    "bg-tag-bug",
+    "bg-tag-feature",
+    "bg-tag-improvement",
+    "bg-tag-documentation",
+    "bg-tag-high-priority",
+    "bg-tag-medium-priority",
+    "bg-tag-low-priority"
+  ],
 };
