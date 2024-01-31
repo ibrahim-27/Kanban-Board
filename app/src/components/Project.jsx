@@ -2,13 +2,19 @@ import React from "react";
 import { Icon } from "@iconify/react";
 import { useAtom } from "jotai";
 import { projectsAtom } from "../states/Project";
+import axios from "axios";
 
 const Project = (props) => {
   const [projects, setProjects] = useAtom(projectsAtom);
 
-  const DeleteProject = () => {
-    setProjects(projects.filter((project) => project.id !== props.id));
+  const DeleteProject = async () => {
+    setProjects(projects.filter((project) => project._id !== props.id));
+    await axios.delete(`http://localhost:3000/project/${props.id}`);
   };
+
+  // const HandleAdd = () => {
+    
+  // }
 
   return (
     <div className="flex items-center justify-around bg-theme-primary py-2 rounded mx-2">
