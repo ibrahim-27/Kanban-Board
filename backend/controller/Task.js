@@ -14,10 +14,12 @@ exports.CreateTask = async (req, res) => {
 
 exports.GetTasks = async (req, res) => {
   try {
-    const tasks = await Task.find({});
+    const tasks = await Task.find({
+      projectId: new mongoose.Types.ObjectId(req.params.pid)
+    });
     res.json(tasks);
   } catch (error) {
-    console.log("Error getting tasks");
+    console.log("Error getting tasks", error);
     res.sendStatus(500);
   }
 };

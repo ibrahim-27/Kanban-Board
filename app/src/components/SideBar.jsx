@@ -1,14 +1,19 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useAtom } from "jotai";
-import { projectsAtom } from "../states/Project";
+import { projectsAtom, selectedProjectAtom } from "../states/Project";
 import Project from "./Project";
-import { Icon } from "@iconify/react";
 import AddProject from "../ui/AddProject";
 import axios from "axios";
 
 const SideBar = () => {
   const [projects, setProjects] = useAtom(projectsAtom);
+  const [selectedProject, setSelectedProject] = useAtom(selectedProjectAtom);
   const [isAddingProject, setIsAddingProject] = useState(false);
+
+  // useEffect(()=>{
+  //   console.log(projects[0]);
+  //   setSelectedProject([projects[0]]);
+  // }, []);
 
   const HandleCancel = () => {
     setIsAddingProject(false);
@@ -20,16 +25,20 @@ const SideBar = () => {
     setProjects([...projects, newProject.data]);
   };
 
+  const SelectProject = (id) => {
+    setSelectedProject(projects.find(p => p._id === id ));
+  }
+
   return (
     <>
       <div className="w-64 bg-theme-secondary text-theme-bg py-4">
-        <h1 className="text-md sm:text-2xl font-semibold text-center">
+        <h1 className="text-md sm:text-2xl font-semibold text-center mb-2">
           Your Projects
         </h1>
         <hr className="mt-4border-gray-600 bg-black" />
         <div className="flex flex-col gap-6 mt-8">
           {projects.map((project) => (
-            <Project key={project._id} title={project.title} id={project._id} />
+            <Project key={project._id} title={project.title} id={project._id} SelectProject={SelectProject} />
           ))}
         </div>
         <div className="mt-4">

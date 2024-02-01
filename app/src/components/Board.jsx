@@ -1,14 +1,37 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import BoardCol from "./BoardCol";
 import { DndContext, useSensor, MouseSensor, useSensors } from "@dnd-kit/core";
 import { useAtom } from "jotai";
 import { tasksAtom } from "../states/Task";
 import axios from "axios";
+import { selectedProjectAtom } from "../states/Project";
 
 const Board = () => {
   const [cols, setCols] = useState(["Backlog", "InProgress", "Completed"]);
 
   const [tasks, setTasks] = useAtom(tasksAtom);
+
+  const [selectedProject, setSelectedProject] = useAtom(selectedProjectAtom);
+
+  useEffect(()=>{
+
+    const FetchTasks = async () => {
+      console.log(selectedProject);
+      try {
+        // if(!selectedProject._id) return;
+        let tasks = await axios.get(
+          `http://localhost:3000/task/${selectedProject._id}`
+        );
+        setTasks(tasks.data);
+      } catch (error) {
+        console.log(error)
+      }
+      
+    };
+
+    FetchTasks();
+
+  }, [selectedProject]);
 
   const OnDragEnd = (event) => {
     const { active, over } = event;
@@ -45,6 +68,7 @@ const Board = () => {
   });
 
   const sensors = useSensors(mouseSensor);
+
 
   return (
     <div className="bg-gray-50 px-6 py-3 rounded-2xl w-full">

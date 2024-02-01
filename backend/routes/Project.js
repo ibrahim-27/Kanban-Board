@@ -6,6 +6,6 @@ const { CreateProject, GetProjects, DeleteProject } = require("../controller/Pro
 projectRouter.
 post('/', CreateProject)
 .get('/', GetProjects)
-.delete('/:id', DeleteProject); 
+.delete('/:id', DeleteProject);
 
 exports.projectRouter = projectRouter;

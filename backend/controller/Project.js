@@ -19,14 +19,13 @@ exports.GetProjects = async (req, res) => {
     const projects = await Project.find({});
     res.json(projects);
   } catch (error) {
-    console.log("Error getting projects");
+    console.log("Error getting projects", error);
     res.sendStatus(500);
   }
 };
 
 exports.DeleteProject = async (req, res) => {
    try {
-    console.log(req);
     const project = await Project.findOneAndDelete({
       _id: new mongoose.Types.ObjectId(req.params.id)
     });

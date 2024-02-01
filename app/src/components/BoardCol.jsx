@@ -50,6 +50,7 @@ const BoardCol = (props) => {
     listeners,
     transform,
     transition,
+    isOver
   } = useDroppable({
     id: props.title.toLowerCase(),
     data: taskArray,
@@ -67,7 +68,7 @@ const BoardCol = (props) => {
           : "",
         transition: transition ? transition : "",
       }}
-      className="bg-gray-50 px-2 text-text-secondary"
+      className={`bg-gray-50 px-2 text-text-secondary border rounded-lg p-2 ${isOver?'border-theme-primary':''}`}
     >
       <div className="flex justify-between">
         <h3 className="text-xl font-semibold">{props.title}</h3>

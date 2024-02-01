@@ -4,7 +4,7 @@ import { useDraggable } from "@dnd-kit/core";
 import Tag from "../ui/Tag";
 
 const Task = ({ task, DeleteTask }) => {
-  const { attributes, listeners, setNodeRef, transform, transition } = useDraggable({
+  const { attributes, listeners, setNodeRef, transform, transition, isDragging } = useDraggable({
     id: task._id.toString(),
   });
 
@@ -21,7 +21,7 @@ const Task = ({ task, DeleteTask }) => {
         transform: transform ? `translate(${transform.x}px, ${transform.y}px)` : "",
         transition,
       }}
-      className="bg-white p-4 rounded-xl flex flex-col gap-4 border"
+      className={`bg-white p-4 rounded-xl flex flex-col gap-4 border ${isDragging?'border border-theme-secondary':''}`}
     >
       <div className="flex justify-between">
         <h1 className="text-text-primary text-lg font-semibold">

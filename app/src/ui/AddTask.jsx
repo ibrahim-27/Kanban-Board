@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
+import { selectedProjectAtom } from '../states/Project';
+import { useAtom } from 'jotai';
 
 const AddTask = (props) => {
+  const [selectedProject, setSelectedProject] = useAtom(selectedProjectAtom);
   const [task, setTask] = useState({
     title: '',
     description: '',
@@ -42,7 +45,7 @@ const AddTask = (props) => {
       .map(([tagName, _]) => tagName);
 
     // Call handleAddTask with selected tags
-    props.HandleAdd({ ...task, tags: selectedTags });
+    props.HandleAdd({ ...task, tags: selectedTags, projectId: selectedProject._id });
     // console.log({ ...task, tags: selectedTags })
 
     // Reset task fields after adding
