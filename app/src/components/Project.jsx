@@ -14,7 +14,7 @@ const Project = (props) => {
   };
 
   return (
-    <div onClick={()=>{props.SelectProject(props.id)}} className={`flex items-center justify-around bg-theme-primary py-2 rounded mx-2 cursor-pointer ${selectedProject._id === props.id?'text-theme-secondary':''}`}>
+    <div onClick={()=>{props.SelectProject(props.id)}} className={`flex items-center justify-around bg-theme-primary py-2 rounded mx-2 cursor-pointer ${selectedProject._id === props.id?'text-theme-secondary underline':''}`}>
       <div className="flex items-center justify-center gap-2">
         <Icon className="hidden sm:block" icon="octicon:project-roadmap-24" />
         <h1 className="text-center text-sm">{props.title}</h1>

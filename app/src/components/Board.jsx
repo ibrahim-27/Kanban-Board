@@ -13,24 +13,26 @@ const Board = () => {
 
   const [selectedProject, setSelectedProject] = useAtom(selectedProjectAtom);
 
-  useEffect(()=>{
-
+  useEffect(() => {
     const FetchTasks = async () => {
-      console.log(selectedProject);
+      // console.log(selectedProject);
       try {
-        // if(!selectedProject._id) return;
+        if (!selectedProject._id) return;
         let tasks = await axios.get(
-          `http://localhost:3000/task/${selectedProject._id}`
+          `http://localhost:3000/task/${selectedProject._id}`,
+          {
+            headers: {
+              Authorization: `${localStorage.getItem("token")}`,
+            },
+          }
         );
-        setTasks(tasks.data);
+        setTasks(tasks.data); 
       } catch (error) {
-        console.log(error)
+        console.log(error);
       }
-      
     };
 
     FetchTasks();
-
   }, [selectedProject]);
 
   const OnDragEnd = (event) => {
@@ -44,10 +46,9 @@ const Board = () => {
     const updatedTasks = tasks.map((task) => {
       if (task._id == active.id && task.status.toLowerCase() !== over.id) {
         try {
-          axios.patch(
-            `http://localhost:3000/task/${task._id}`,
-            { status: over.id }
-          );
+          axios.patch(`http://localhost:3000/task/${task._id}`, {
+            status: over.id,
+          });
           return { ...task, status: over.id };
         } catch (error) {
           console.error("Error updating task:", error);
@@ -68,7 +69,6 @@ const Board = () => {
   });
 
   const sensors = useSensors(mouseSensor);
-
 
   return (
     <div className="bg-gray-50 px-6 py-3 rounded-2xl w-full">

@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 const { Project } = require("../model/Project");
 
+
 exports.CreateProject = async (req, res) => {
   try {
     let userId = req.body.userId;
@@ -16,7 +17,9 @@ exports.CreateProject = async (req, res) => {
 
 exports.GetProjects = async (req, res) => {
   try {
-    const projects = await Project.find({});
+    const projects = await Project.find({
+      userId: new mongoose.Types.ObjectId(req.params.id)
+    });
     res.json(projects);
   } catch (error) {
     console.log("Error getting projects", error);

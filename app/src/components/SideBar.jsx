@@ -4,16 +4,30 @@ import { projectsAtom, selectedProjectAtom } from "../states/Project";
 import Project from "./Project";
 import AddProject from "../ui/AddProject";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
+// import { useAtom } from "jotai";
+import { userIdAtom } from "../states/User";
 
 const SideBar = () => {
   const [projects, setProjects] = useAtom(projectsAtom);
   const [selectedProject, setSelectedProject] = useAtom(selectedProjectAtom);
   const [isAddingProject, setIsAddingProject] = useState(false);
+  const [userId] = useAtom(userIdAtom);
+  const navigate = useNavigate();
 
-  // useEffect(()=>{
-  //   console.log(projects[0]);
-  //   setSelectedProject([projects[0]]);
-  // }, []);
+  useEffect(()=>{
+    const fetchProjects = async () => {
+      console.log('user', userId)
+      let res = await axios.get(`http://localhost:3000/project/${userId}`, {
+        headers: {
+            Authorization: `${localStorage.getItem("token")}`,
+        }});
+
+      setProjects(res.data);
+      setSelectedProject(res.data[0]);
+    }
+    fetchProjects();
+  }, [userId]);
 
   const HandleCancel = () => {
     setIsAddingProject(false);
@@ -21,6 +35,8 @@ const SideBar = () => {
 
   const HandleAdd = async (project) => {
     setIsAddingProject(false);
+    project = {...project, userId: userId};
+    console.log('user' , userId)
     let newProject = await axios.post("http://localhost:3000/project", project);
     setProjects([...projects, newProject.data]);
   };
@@ -31,13 +47,13 @@ const SideBar = () => {
 
   return (
     <>
-      <div className="w-64 bg-theme-secondary text-theme-bg py-4">
+      <div className="w-64 bg-theme-secondary text-theme-bg py-4 relative">
         <h1 className="text-md sm:text-2xl font-semibold text-center mb-2">
           Your Projects
         </h1>
         <hr className="mt-4border-gray-600 bg-black" />
         <div className="flex flex-col gap-6 mt-8">
-          {projects.map((project) => (
+          {projects.length !== 0 && projects.map((project) => (
             <Project key={project._id} title={project.title} id={project._id} SelectProject={SelectProject} />
           ))}
         </div>
@@ -49,6 +65,10 @@ const SideBar = () => {
             <h1 className="text-center">Add New Project</h1>
           </div>
         </div>
+        <button onClick={()=>{
+          localStorage.removeItem('token');
+          navigate('/');
+        }} className="absolute bottom-4 w-1/2 border border-theme-primary left-[25%] px-2 py-1 rounded-md bg-theme-primary hover:text-theme-primary hover:bg-theme-secondary">Logout</button>
       </div>
       {isAddingProject ? (
         <>
