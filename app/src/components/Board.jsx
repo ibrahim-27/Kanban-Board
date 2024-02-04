@@ -71,7 +71,7 @@ const Board = () => {
   const sensors = useSensors(mouseSensor);
 
   return (
-    <div className="bg-gray-50 px-6 py-3 rounded-2xl w-full">
+    <div className="bg-gray-50 px-6 py-3 rounded-2xl w-full overflow-auto">
       <h1 className="text-text-primary text-2xl font-bold my-6">
         Kanban Board
       </h1>

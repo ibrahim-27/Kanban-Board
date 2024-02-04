@@ -34,6 +34,7 @@ const Auth = () => {
             const res = await axios.post('http://localhost:3000/login', loginData);
             // console.log(res);
             localStorage.setItem('token', res.data.token);
+            localStorage.setItem('userId', res.data.user._id);
             setUserId(res.data.user._id);
             navigate('/dashboard');
         } catch (error) {

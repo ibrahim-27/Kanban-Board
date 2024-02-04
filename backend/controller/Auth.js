@@ -9,7 +9,6 @@ exports.Login = async (req, res, next) => {
         const password = req.body.lpassword;
 
         const user = await User.findOne({ email, password });
-        // console.log(user);
 
         if (!user) {
             return res.status(404).send("User not found");
@@ -17,7 +16,6 @@ exports.Login = async (req, res, next) => {
 
         // Generate JWT token
         const token = jwt.sign({ userId: user._id }, process.env.SECRET_KEY);
-        // console.log(token)
 
         // Send the token to the client
         res.status(200).json({ token, user});

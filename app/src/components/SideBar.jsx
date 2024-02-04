@@ -17,7 +17,6 @@ const SideBar = () => {
 
   useEffect(()=>{
     const fetchProjects = async () => {
-      console.log('user', userId)
       let res = await axios.get(`http://localhost:3000/project/${userId}`, {
         headers: {
             Authorization: `${localStorage.getItem("token")}`,
@@ -26,6 +25,7 @@ const SideBar = () => {
       setProjects(res.data);
       setSelectedProject(res.data[0]);
     }
+    
     fetchProjects();
   }, [userId]);
 
@@ -36,7 +36,6 @@ const SideBar = () => {
   const HandleAdd = async (project) => {
     setIsAddingProject(false);
     project = {...project, userId: userId};
-    console.log('user' , userId)
     let newProject = await axios.post("http://localhost:3000/project", project);
     setProjects([...projects, newProject.data]);
   };
@@ -47,12 +46,12 @@ const SideBar = () => {
 
   return (
     <>
-      <div className="w-64 bg-theme-secondary text-theme-bg py-4 relative">
+      <div className="w-64 bg-theme-secondary text-theme-bg py-4 flex flex-col gap-2">
         <h1 className="text-md sm:text-2xl font-semibold text-center mb-2">
           Your Projects
         </h1>
         <hr className="mt-4border-gray-600 bg-black" />
-        <div className="flex flex-col gap-6 mt-8">
+        <div className="flex flex-col gap-6 mt-8 overflow-auto">
           {projects.length !== 0 && projects.map((project) => (
             <Project key={project._id} title={project.title} id={project._id} SelectProject={SelectProject} />
           ))}
@@ -67,8 +66,9 @@ const SideBar = () => {
         </div>
         <button onClick={()=>{
           localStorage.removeItem('token');
+          localStorage.removeItem('userId');
           navigate('/');
-        }} className="absolute bottom-4 w-1/2 border border-theme-primary left-[25%] px-2 py-1 rounded-md bg-theme-primary hover:text-theme-primary hover:bg-theme-secondary">Logout</button>
+        }} className="mt-auto w-1/2 mx-auto border border-red-600 left-[25%] px-2 py-1 rounded-md bg-red-600 hover:text-red-600 hover:bg-theme-secondary">Logout</button>
       </div>
       {isAddingProject ? (
         <>
