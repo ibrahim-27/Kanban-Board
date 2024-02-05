@@ -32,7 +32,6 @@ const Auth = () => {
         e.preventDefault();
         try {
             const res = await axios.post('http://localhost:3000/login', loginData);
-            // console.log(res);
             localStorage.setItem('token', res.data.token);
             localStorage.setItem('userId', res.data.user._id);
             setUserId(res.data.user._id);
@@ -44,22 +43,15 @@ const Auth = () => {
 
     const HandleRegisterSubmit = async (e) => {
         e.preventDefault();
-        // console.log(registerData);
         try {
             let user = await axios.post('http://localhost:3000/user', registerData);
-            // setUserId(user.data._id);
-            // console.log(user);
             
         } catch (error) {
             console.log(error)
         }
     }
 
-    // useEffect(() => {
-    //     if(localStorage.getItem('token')) {
-    //         navigate('/dashboard');
-    //     }
-    // }, []);
+  
 
   return (
     <div className='bg-theme-secondary min-h-screen'>

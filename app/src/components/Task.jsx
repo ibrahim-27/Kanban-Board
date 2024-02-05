@@ -8,9 +8,6 @@ const Task = ({ task, DeleteTask }) => {
     id: task._id.toString(),
   });
 
-  // useEffect(() => {
-  //   console.log(task.tags);
-  //  }, []);
 
   return (
     <div

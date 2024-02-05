@@ -15,7 +15,6 @@ const Board = () => {
 
   useEffect(() => {
     const FetchTasks = async () => {
-      // console.log(selectedProject);
       try {
         if (!selectedProject._id) return;
         let tasks = await axios.get(
@@ -37,7 +36,6 @@ const Board = () => {
 
   const OnDragEnd = (event) => {
     const { active, over } = event;
-    // console.log(event)
 
     if (!over) {
       return;

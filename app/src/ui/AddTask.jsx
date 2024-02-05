@@ -46,7 +46,6 @@ const AddTask = (props) => {
 
     // Call handleAddTask with selected tags
     props.HandleAdd({ ...task, tags: selectedTags, projectId: selectedProject._id });
-    // console.log({ ...task, tags: selectedTags })
 
     // Reset task fields after adding
     setTask({

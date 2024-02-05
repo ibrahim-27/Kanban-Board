@@ -10,7 +10,6 @@ const BoardCol = (props) => {
   const [isAddingTask, setIsAddingTask] = useState(false);
 
   const FilterData = () => {
-    // console.log(props.tasks, props.title);
     setTaskArray(props.tasks.filter((task) => task.status.toLowerCase() === props.title.toLowerCase()));
   }
 
@@ -23,21 +22,17 @@ const BoardCol = (props) => {
     try {
       let newTask = await axios.post('http://localhost:3000/task/', task);
       newTask = newTask.data;
-      // console.log(newTask);
       setTaskArray([...taskArray, newTask]);
       
     } catch (error) {
       console.log(error)
     }
-    // setTaskArray([...taskArray, task]);
     setIsAddingTask(false);
   }
 
   const DeleteTask = async (id) => {
-    // console.log(id);
     await axios.delete(`http://localhost:3000/task/${id}`);
     setTaskArray(taskArray.filter((task) => task._id !== id));
-    // console.log(taskArray);
   }
 
   useEffect(() => {
