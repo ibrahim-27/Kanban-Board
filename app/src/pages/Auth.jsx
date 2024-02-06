@@ -57,7 +57,7 @@ const Auth = () => {
     <div className='bg-theme-secondary min-h-screen'>
     <h1 className='text-4xl text-center py-6 text-white font-bold'>Kanban Board</h1>
     <div className='h-screen md:h-[500px] flex flex-col gap-2 items-center justify-center md:flex-row md:gap-0'>
-        <div className='flex flex-col bg-theme-bg h-full justify-center px-16'>
+        <div className='flex flex-col bg-theme-bg h-full justify-center px-16 rounded-l-md'>
             <h1 className='text-theme-secondary text-2xl text-center mb-4'>Login</h1>
             <form className='flex flex-col gap-6' action="">
                 <input onChange={HandleLoginChange} className='px-2 py-1 rounded-md border-theme-secondary' type="text" placeholder="Email" name='lemail'></input>
@@ -65,7 +65,7 @@ const Auth = () => {
                 <button onClick={HandleLoginSubmit} className='w-1/2 mx-auto bg-theme-secondary px-2 py-1 rounded-md border text-white hover:border-theme-secondary hover:text-theme-secondary hover:bg-theme-bg' type="submit">Login</button>
             </form>
         </div>
-        <div className='flex flex-col bg-theme-primary h-full justify-center px-16'>
+        <div className='flex flex-col bg-theme-primary h-full justify-center px-16 rounded-r-md'>
             <h1 className='text-white text-2xl text-center mb-4'>Register</h1>
             <form className='flex flex-col gap-6' action="">
                 <input onChange={HandleRegisterChange} className='px-2 py-1 rounded-md' type="text" placeholder="Your Name" name='username'></input>
